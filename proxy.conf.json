@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://cac4a2e944f362620ca3.free.beeceptor.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

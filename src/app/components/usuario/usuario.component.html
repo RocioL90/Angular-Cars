@@ -1,0 +1,77 @@
+<div class="container">
+  <h1>Aplicacion para Autos</h1>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  <div *ngIf="isLoading" class="loader">Cargando...</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>MARCA</th>
+        <th>MODELO</th>
+        <th>AÑO</th>
+        <th>COLOR</th>
+        <th colspan="2">ACCION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios; trackBy: trackById">
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.brand }}</td>
+        <td>{{ usuario.model }}</td>
+        <td>{{ usuario.year }}</td>
+        <td>{{ usuario.color }}</td>
+        <td>
+          <button class="btn btn-edit" (click)="editUsuario(usuario)">EDITAR</button>
+        </td>
+        <td>
+          <button class="btn btn-delete" (click)="deleteUsuario(usuario.id!)">ELIMINAR</button>
+        </td>
+      </tr>
+      <tr *ngIf="usuarios.length === 0 && !isLoading">
+        <td colspan="7" class="text-center">No hay autos disponibles</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td></td>
+        <td><input [(ngModel)]="newUsuario.brand" placeholder="Marca"></td>
+        <td><input [(ngModel)]="newUsuario.model" placeholder="Modelo"></td>
+        <td><input type="number" [(ngModel)]="newUsuario.year" placeholder="Año"></td>
+        <td><input [(ngModel)]="newUsuario.color" placeholder="Color"></td>
+        <td colspan="2" style="text-align: center">
+          <button class="btn btn-add" (click)="saveObject()">AGREGAR</button>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div *ngIf="showPopup && selectedUsuario" id="popUp">
+    <h2>Editar Auto</h2>
+    <div>
+      <label>ID:</label>
+      <input class="inputPopUp" [value]="selectedUsuario.id" readonly>
+    </div>
+    <div>
+      <label>MARCA:</label>
+      <input class="inputPopUp" [(ngModel)]="selectedUsuario.brand">
+    </div>
+    <div>
+      <label>MODELO:</label>
+      <input class="inputPopUp" [(ngModel)]="selectedUsuario.model">
+    </div>
+    <div>
+      <label>AÑO:</label>
+      <input type="number" class="inputPopUp" [(ngModel)]="selectedUsuario.year">
+    </div>
+    <div>
+      <label>COLOR:</label>
+      <input class="inputPopUp" [(ngModel)]="selectedUsuario.color">
+    </div>
+    <div>
+      <button class="btn btn-add" (click)="updateObject()">ACTUALIZAR</button>
+      <button class="btn btn-cancel" (click)="closePopup()">CANCELAR</button>
+    </div>
+  </div>
+</div>
